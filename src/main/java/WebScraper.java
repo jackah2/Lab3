@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -11,8 +13,15 @@ public class WebScraper {
 
     /**
      * URL The URL to a website.
+     * WORD A word to be counted
      */
-    private static final String URL = "https://pastebin.com/raw/U7nPzRGJ";
+    private static final String URL = "http://erdani.com/tdpl/hamlet.txt",
+            WORD = "Prince";
+
+    /**
+     * A map to store words and how many times they show up.
+     */
+    private static final Map<String, Integer> WORD_COUNT  = new HashMap<String, Integer>();
 
     /**
      *
@@ -20,9 +29,19 @@ public class WebScraper {
      */
     public static void main(final String[] unused) {
         String contents = urlToString(URL);
+        String[] words = contents.split("\\s+");
+
+        int count = 0;
+        for (String word:words) {
+            if (word.toLowerCase().indexOf(WORD.toLowerCase()) >= 0) {
+                count++;
+            }
+        }
 
         System.out.println(contents);
-        System.out.println(contents.split("\\s+").length + " words on page \"" + URL + "\"");
+        System.out.println(words.length + " word" + s(words.length) + " on page \"" + URL + "\"");
+        System.out.println(WORD + " is found on the page " + count
+                + " time" + s(count));
     }
 
     /**
@@ -41,5 +60,16 @@ public class WebScraper {
         String contents = urlScanner.useDelimiter("\\A").next();
         urlScanner.close();
         return contents;
+    }
+
+    /**
+     * @return String nothing or an "s" for plurals
+     * @param num number of items
+     */
+    private static String s(final int num) {
+        if (num == 1) {
+            return "";
+        }
+        return "s";
     }
 }
