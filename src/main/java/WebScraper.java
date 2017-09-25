@@ -38,7 +38,34 @@ public class WebScraper {
             }
         }
 
-        System.out.println(contents);
+        String current;
+        for (int ind = 0; ind < words.length; ind++) {
+            current = words[ind];
+            current = current.replace(".", "");
+            current = current.replace(",", "");
+            current = current.replace("!", "");
+            current = current.replace("?", "");
+            current = current.replace("\"", "");
+            current = current.replace("[", "");
+            current = current.replace("]", "");
+            current = current.replace("(", "");
+            current = current.replace(")", "");
+            words[ind] = current;
+        }
+
+        for (String word:words) {
+            if (word.equals("")) {
+                continue;
+            }
+            if (WORD_COUNT.containsKey(word)) {
+                WORD_COUNT.put(word, WORD_COUNT.get(word) + 1);
+            } else {
+                WORD_COUNT.put(word, 1);
+            }
+        }
+
+        //System.out.println(contents);
+        System.out.println(WORD_COUNT);
         System.out.println(words.length + " word" + s(words.length) + " on page \"" + URL + "\"");
         System.out.println(WORD + " is found on the page " + count
                 + " time" + s(count));
