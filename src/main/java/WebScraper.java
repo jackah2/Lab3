@@ -1,8 +1,8 @@
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  *
@@ -21,7 +21,7 @@ public class WebScraper {
     /**
      * A map to store words and how many times they show up.
      */
-    private static final Map<String, Integer> WORD_COUNT  = new HashMap<String, Integer>();
+    private static final Set<String> UNIQUE_WORDS  = new HashSet<String>();
 
     /**
      *
@@ -57,15 +57,12 @@ public class WebScraper {
             if (word.equals("")) {
                 continue;
             }
-            if (WORD_COUNT.containsKey(word)) {
-                WORD_COUNT.put(word, WORD_COUNT.get(word) + 1);
-            } else {
-                WORD_COUNT.put(word, 1);
+            if (!UNIQUE_WORDS.contains(word)) {
+                UNIQUE_WORDS.add(word);
             }
         }
 
-        //System.out.println(contents);
-        System.out.println(WORD_COUNT);
+        System.out.println(UNIQUE_WORDS.size() + " unique words");
         System.out.println(words.length + " word" + s(words.length) + " on page \"" + URL + "\"");
         System.out.println(WORD + " is found on the page " + count
                 + " time" + s(count));
