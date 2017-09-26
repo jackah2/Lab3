@@ -87,7 +87,7 @@ public class WebScraper {
     }
 
     /**
-     * @return String nothing or an "s" for plurals
+     * @return String gives an "s" if there is "num" is more than 1 (Used for plurals).
      * @param num number of items
      */
     private static String s(final int num) {
